@@ -1,0 +1,7 @@
+---
+# vars file for egsnrc
+EGS_SRC=~/EGSnrc
+HEN_HOUSE="{{EGS_SRC}}/HEN_HOUSE"
+CONFIG=linux.conf
+COMPILE_USER_CODES=1
+EGS_VERSION=master

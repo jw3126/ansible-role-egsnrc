@@ -1,0 +1,19 @@
+---
+- include_tasks: "{{ ansible_os_family | lower }}.yml"
+# tasks file for egsnrc
+- name: git clone
+  git:
+    repo:
+    dest: "{{ EGS_SRC }}"
+    version: "{{EGS_VERSION}}"
+
+- name: "Run install script"
+  expect:
+    command: "./{{HEN_HOUSE}}/scripts/configure"
+    responses:
+
+    args:
+      chdir: "{{ EGS_SRC }}"
+
+  command: ["{{HEN_HOUSE}}/scripts/configure.expect", " {{CONFIG}} ", "{{COMPILE_USER_CODES}}"]
+

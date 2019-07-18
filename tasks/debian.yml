@@ -1,7 +1,7 @@
 ---
 - name: Install dependencies
   apt:
-  name:  ["gfortran ", "gcc ", "g++ ", "expect ", "git"]
+    name: ["gfortran", "gcc", "g++", "git"]
     state: latest
   become: true
   become_method: sudo

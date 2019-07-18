@@ -3,17 +3,58 @@
 # tasks file for egsnrc
 - name: git clone
   git:
-    repo:
+    repo: "https://github.com/nrc-cnrc/EGSnrc.git"
     dest: "{{ EGS_SRC }}"
     version: "{{EGS_VERSION}}"
 
 - name: "Run install script"
+  environment:
+    - HEN_HOUSE: ""
+    - EGS_HOME: ""
+    - EGS_CONFIG: ""
   expect:
-    command: "./{{HEN_HOUSE}}/scripts/configure"
+    echo: yes
+    chdir: "{{ EGS_SRC }}"
+    command: "./HEN_HOUSE/scripts/configure"
+    timeout: 600
     responses:
+        (.*)Press enter to continue(.*): "\n"
+        ## Fortran
+        (.*)Input fortran compiler(.*): "\n"
+        (.*)Input standard compilation flags(.*): "-fPIC\n"
+        (.*)Input optimization flags(.*): "-O3 -mtune=native\n"
+        (.*)Input flags for debugging(.*): "-g\n"
+        (.*)Input libraries that your compiler may need(.*): "\n"
+        ## C
+        (.*)Input C compiler(.*):  "\n"
+        (.*)Input C compiler flags to use(.*) : "-fPIC -O3 -g \n"
+        ## config
+        (.*)Input path to EGSnrc HEN_HOUSE directory(.*): "\n"
+        (.*)Choose a configuration name(.*): "{{CONFIG_NAME}}\n"
 
-    args:
-      chdir: "{{ EGS_SRC }}"
+        (.*)Do you want to overwrite ?(.*):  "yes\n"
 
-  command: ["{{HEN_HOUSE}}/scripts/configure.expect", " {{CONFIG}} ", "{{COMPILE_USER_CODES}}"]
+        ## C++
+        (.*)Input C\+\+ compiler(.*):                            "\n"
+        (.*)Input option to change, or enter to proceed(.*):   "\n"
+      
+        ## Finalize for user
+        (.*)Do you want to finalize(.*): "yes\n"
+        (.*)Press enter to continue.(.*):   "\n"
+        (.*)Choose a directory for your user codes(.*):        "\n"
+        (.*)Choose 1 \(all\), 2 \(some\) or 3 \(none\)(.*):    "{{ COMPILE_USER_CODES }}\n"
+  register: expect_result
+
+- debug:
+    msg: "{{ expect_result }}"
+
+- name: "Add to bashrc"
+  blockinfile:
+    path: "~/.bashrc"
+    marker_begin: "BEGIN EGSnrc"
+    marker_end: "END EGSnrc"
+    block: |
+      export EGS_HOME={{ EGS_HOME }}
+      export EGS_CONFIG={{EGS_CONFIG}}
+      source {{PATH_EGS_BASHRCADDITIONS}}
 

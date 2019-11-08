@@ -4,7 +4,7 @@
 
 - name: "Show parameters"
   debug:
-    var: |
+    msg: |
       EGS_SRC     = {{ EGS_SRC }}
       HEN_HOUSE   = {{ EGS_SRC }}
       EGS_HOME    = {{ EGS_HOME }}

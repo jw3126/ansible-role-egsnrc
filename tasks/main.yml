@@ -1,6 +1,19 @@
 ---
 - include_tasks: "{{ ansible_os_family | lower }}.yml"
 # tasks file for egsnrc
+
+- name: "Show parameters"
+  debug:
+    var: |
+      EGS_SRC     = {{ EGS_SRC }}
+      HEN_HOUSE   = {{ EGS_SRC }}
+      EGS_HOME    = {{ EGS_HOME }}
+      EGS_VERSION = {{ EGS_VERSION }}
+
+- name: "Install pexpect"
+  pip:
+    name: pexpect
+
 - name: git clone
   git:
     repo: "https://github.com/nrc-cnrc/EGSnrc.git"

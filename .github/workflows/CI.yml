@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: install
+      run: ansible-galaxy install git+https://github.com/jw3126/ansible-role-egsnrc.git
+    - uses: actions/checkout@v2
+    - name: playbook
+      run: ansible-playbook --become tests/test.yml

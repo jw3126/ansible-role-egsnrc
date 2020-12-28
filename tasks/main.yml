@@ -34,8 +34,8 @@
         (.*)Press enter to continue(.*): "\n"
         ## Fortran
         (.*)Input fortran compiler(.*): "\n"
-        (.*)Input standard compilation flags(.*): "-fPIC\n"
-        (.*)Input optimization flags(.*): "-O3 -mtune=native\n"
+        (.*)Input standard compilation flags(.*): "{{FORTRAN_STANDARD_FLAGS}}\n"
+        (.*)Input optimization flags(.*): "{{FORTRAN_OPTIMIZATION_FLAGS}}\n"
         (.*)Input flags for debugging(.*): "-g\n"
         (.*)Input libraries that your compiler may need(.*): "\n"
         ## C
@@ -50,7 +50,7 @@
         ## C++
         (.*)Input C\+\+ compiler(.*):                            "\n"
         (.*)Input option to change, or enter to proceed(.*):   "\n"
-      
+
         ## Finalize for user
         (.*)Do you want to finalize(.*): "yes\n"
         (.*)Press enter to continue.(.*):   "\n"

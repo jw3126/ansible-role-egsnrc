@@ -1,11 +1,12 @@
 ---
 # vars file for egsnrc
-EGS_SRC: "{{ansible_env.HOME}}/EGSnrc"
-HEN_HOUSE: "{{EGS_SRC}}/HEN_HOUSE"
-CONFIG_NAME: "ansible.conf"
-COMPILE_USER_CODES: "1"
-EGS_VERSION: "master"
-EGS_HOME: "{{EGS_SRC}}/egs_home/"
-EGS_CONFIG: "{{HEN_HOUSE}}/specs/{{CONFIG_NAME}}"
-PATH_EGS_BASHRCADDITIONS: "{{HEN_HOUSE}}/scripts/egsnrc_bashrc_additions"
-
+EGS_SRC:                    "{{ansible_env.HOME}}/EGSnrc"
+HEN_HOUSE:                  "{{EGS_SRC}}/HEN_HOUSE"
+CONFIG_NAME:                "ansible.conf"
+COMPILE_USER_CODES:         "1"
+EGS_VERSION:                "master"
+EGS_HOME:                   "{{EGS_SRC}}/egs_home/"
+EGS_CONFIG:                 "{{HEN_HOUSE}}/specs/{{CONFIG_NAME}}"
+PATH_EGS_BASHRCADDITIONS:   "{{HEN_HOUSE}}/scripts/egsnrc_bashrc_additions"
+FORTRAN_STANDARD_FLAGS:     "-fPIC -std=legacy"
+FORTRAN_OPTIMIZATION_FLAGS: "-O3 -mtune=native"
